@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <title>BOOK COVER CALC</title>
+</head>
+<body>
+  <div id="app1">
+    <div class="container">
+      <section>
+        <div>
+          <div>
+            <img src="images\1.jpg" alt="Выбор толщины картона в зависимости от толщины блока">
+            <p>Рис. 1. Выбор толщины картона в зависимости от толщины блока: М - для малых; С - для 
+            средних; Б - для больших форматов.</p>
+          </div>
+          <div>
+            <label for="cardboard">Введите толщину картона (рис. 1)</label>
+            <input id="cardboard" type="text" v-model="k">
+            <table>
+              <caption>
+                Табл. 1. Размерные показатели переплетных крышек и книг в мм.
+              </caption>
+              <thead>
+                <tr>
+                  <th>Формат издания</th>
+                  <th>Квн</th>
+                  <th>Кп</th>
+                  <th>Р</th>
+                  <th>З</th>
+                </tr>
+              </thead>
+              
+              <tfoot>
+                
+              </tfoot>
+              <tbody>
+                  <tr v-for="format in formats" v-bind:key="format.name">
+                    <td>{{format.name}}</td>
+                    <td>{{format.kvn}}</td>
+                    <td>{{format.kp}}</td>
+                    <td v-if="+k">{{calcP(k)}}</td>
+                    <td v-else>Выберите толщину картона</td>
+                    <td>{{format.z}}</td>
+                  </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div>
+            <ul>
+              <li>К — толщина картона</li>
+              <li>Тб — толщина книжного блока</li>
+              <li>Квн — ширина верхних и нижних кантов</li>
+              <li>Кп — ширина передних кантов</li>
+              <li>Р — ширина расстава</li>
+              <li>З — ширина загибки покровного материала</li>
+              <li>Ш — ширина книжного блока</li>
+              <li>В — высота книжного блока</li>
+            </ul>
+          </div>
+          
+        </div>
+        <form>
+          
+          <label for="width">Ш</label>
+          <input id="width" type="text" v-model="k">
+          <label for="height">В</label>
+          <input id="height" type="text" v-model="k">
+          <label for="zagib">З</label>
+          <input id="zagib" type="text" v-model="k">
+        </form>
+      </section>
+    </div>
+  </div>
+
+
+
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.7.8/dist/vue.js"></script>
+  <script>
+    window.app = new Vue({
+      el: '#app',
+      data: function() {
+        return {
+          k: 0,
+          formats: [
+            {
+              name: 'Малый',
+              kvn: 2,
+              kp: 3,
+              z: 15,
+            },
+            {
+              name: 'Средний',
+              kvn: 3,
+              kp: 4,
+              z: 15,
+            },
+            {
+              name: 'Большой',
+              kvn: 4,
+              kp: 5,
+              z: 15,
+            }
+          ],
+        }
+      },
+      methods: {
+        calcP: function(n) {
+          return 5 + Number(n) * 2
+        }
+      }
+    });
+  </script>
+  <script src="main.js"></script>
+</body>
+</html>
