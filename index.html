@@ -7,8 +7,9 @@
   <title>BOOK COVER CALC</title>
 </head>
 <body>
-  <div id="app1">
+  <div id="app">
     <div class="container">
+      <h1>Рассчет размеров деталей переплетных крышек типа 7</h1>
       <section>
         <div>
           <div>
@@ -17,7 +18,7 @@
             средних; Б - для больших форматов.</p>
           </div>
           <div>
-            <label for="cardboard">Введите толщину картона (рис. 1)</label>
+            <label for="cardboard">Введите толщину картона К (рис. 1)</label>
             <input id="cardboard" type="text" v-model="k">
             <table>
               <caption>
@@ -41,7 +42,7 @@
                     <td>{{format.name}}</td>
                     <td>{{format.kvn}}</td>
                     <td>{{format.kp}}</td>
-                    <td v-if="+k">{{calcP(k)}}</td>
+                    <td v-if="k">{{calcP(k)}}</td>
                     <td v-else>Выберите толщину картона</td>
                     <td>{{format.z}}</td>
                   </tr>
@@ -59,19 +60,37 @@
               <li>З — ширина загибки покровного материала</li>
               <li>Ш — ширина книжного блока</li>
               <li>В — высота книжного блока</li>
+              <li>Кот — толщина картона отстава</li>
             </ul>
+            
+            <form>
+              <div>
+                <div>
+                  <select name="select">
+                    <option value="Малый">Малый</option>
+                    <option value="Средний" selected>Средний</option>
+                    <option value="Большой">Большой</option>
+                  </select>
+                  <input id="straight" type="radio" name="book-spine" checked>
+                  <label for="straight">Прямой корешок</label>
+                  <input id="round" type="radio" name="book-spine">
+                  <label for="round">Кругленый корешок</label>
+                </div>
+                <div>
+                  <label for="width">Ш</label>
+                  <input id="width" type="text">
+                  <label for="height">В</label>
+                  <input id="height" type="text">
+                  <label for="thickness">Тб</label>
+                  <input id="thickness" type="text">
+                  <label for="card-spine">Кот</label>
+                  <input id="card-spine" type="text">
+                </div>
+              </div>
+            </form>
           </div>
           
         </div>
-        <form>
-          
-          <label for="width">Ш</label>
-          <input id="width" type="text" v-model="k">
-          <label for="height">В</label>
-          <input id="height" type="text" v-model="k">
-          <label for="zagib">З</label>
-          <input id="zagib" type="text" v-model="k">
-        </form>
       </section>
     </div>
   </div>
@@ -108,10 +127,16 @@
         }
       },
       methods: {
-        calcP: function(n) {
-          return 5 + Number(n) * 2
+        calcP: function(k) {
+          let str = k.split('').map(i => i == ',' ? '.' : i).join('');
+          let P = 5 + Number(str) * 2;
+          this.formats.forEach(obj => obj.p = P);
+          return P
         }
-      }
+      },
+      computed: {
+        
+      },
     });
   </script>
   <script src="main.js"></script>
