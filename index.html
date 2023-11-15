@@ -73,8 +73,8 @@
                     <option value="Большой">Большой</option>
                   </select>
                   <select id="spine-type" name="spine-type">
-                    <option value="" selected>Прямой корешок</option>
-                    <option value="">Кругленый корешок</option>
+                    <option value="straight" selected>Прямой корешок</option>
+                    <option value="round">Кругленый корешок</option>
                   </select>
                 </div>
                 <div>
@@ -92,7 +92,7 @@
           </div>
           
         </div>
-        <button v-bind:disabled="isButtonDisabled">Рассчитать</button>
+        <button v-bind:disabled="isButtonDisabled" v-on:click="addInParams">Рассчитать</button>
       </section>
     </div>
   </div>
@@ -110,7 +110,9 @@
           h: 0,
           Tb: 0,
           Kot: 0,
-          params: {},
+          params: {
+
+          },
           formats: [
             {
               name: 'Малый',
@@ -139,12 +141,34 @@
           let P = 5 + Number(str) * 2;
           this.formats.forEach(obj => obj.p = P);
           return P
+        },
+        addInParams: function() {
+          this.params.k = +this.k;
+          this.params.w = +this.w;
+          this.params.h = +this.h;
+          this.params.Tb = +this.Tb;
+          this.params.Kot = +this.Kot;
+          let selectFormat = document.querySelector('#format-type');
+          this.formats.map(function(obj){
+            if (obj.name == selectFormat.value) {
+              for (let key in obj) {
+                if (key == 'name') continue
+                app.params[key] = +obj[key]
+              }
+            }
+          });
+        },
+        calculationValue: function() {
+          addInParams();
+          let selectSpine = document.querySelector('#spine-type');
+          
         }
       },
       computed: {
         isButtonDisabled: function() {
           return +this.k && +this.w && +this.h && +this.Tb && +this.Kot ? false : true
         },
+
       },
     });
   </script>
