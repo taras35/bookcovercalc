@@ -10,6 +10,7 @@
   <div id="app">
     <div class="container">
       <h1>Рассчет размеров деталей переплетных крышек типа 7</h1>
+      <h2>*все значения указывать в мм</h2>
       <section>
         <div>
           <div>
@@ -19,7 +20,7 @@
           </div>
           <div>
             <label for="cardboard">Введите толщину картона К (рис. 1)</label>
-            <input id="cardboard" type="text" v-model="k">
+            <input id="cardboard" type="text" v-model="params.k">
             <table>
               <caption>
                 Табл. 1. Размерные показатели переплетных крышек и книг в мм.
@@ -42,14 +43,13 @@
                     <td>{{format.name}}</td>
                     <td>{{format.kvn}}</td>
                     <td>{{format.kp}}</td>
-                    <td v-if="k">{{calcP(k)}}</td>
+                    <td v-if="params.k">{{calcP(params.k)}}</td>
                     <td v-else>Выберите толщину картона</td>
                     <td>{{format.z}}</td>
                   </tr>
               </tbody>
             </table>
           </div>
-
           <div>
             <ul>
               <li>К — толщина картона</li>
@@ -66,31 +66,35 @@
             <form>
               <div>
                 <div>
-                  <select name="select">
+                  <select id="format-type" name="format-type">
                     <option value="Малый">Малый</option>
                     <option value="Средний" selected>Средний</option>
                     <option value="Большой">Большой</option>
                   </select>
-                  <input id="straight" type="radio" name="book-spine" checked>
-                  <label for="straight">Прямой корешок</label>
-                  <input id="round" type="radio" name="book-spine">
-                  <label for="round">Кругленый корешок</label>
+                  <select id="spine-type" name="spine-type">
+                    <option value="" selected>Прямой корешок</option>
+                    <option value="">Кругленый корешок</option>
+                  </select>
                 </div>
                 <div>
                   <label for="width">Ш</label>
-                  <input id="width" type="text">
+                  <input id="width" type="text" v-model="params.w">
                   <label for="height">В</label>
-                  <input id="height" type="text">
+                  <input id="height" type="text" v-model="params.h">
                   <label for="thickness">Тб</label>
-                  <input id="thickness" type="text">
+                  <input id="thickness" type="text" v-model="params.Tb">
                   <label for="card-spine">Кот</label>
-                  <input id="card-spine" type="text">
+                  <input id="card-spine" type="text" v-model="params.Kot">
                 </div>
               </div>
             </form>
           </div>
-          
         </div>
+        <button v-bind:disabled="isButtonDisabled">Рассчитать</button>
+      </section>
+
+      <section>
+
       </section>
     </div>
   </div>
@@ -98,47 +102,9 @@
 
 
   <script src="https://cdn.jsdelivr.net/npm/vue@2.7.8/dist/vue.js"></script>
-  <script>
-    window.app = new Vue({
-      el: '#app',
-      data: function() {
-        return {
-          k: 0,
-          formats: [
-            {
-              name: 'Малый',
-              kvn: 2,
-              kp: 3,
-              z: 15,
-            },
-            {
-              name: 'Средний',
-              kvn: 3,
-              kp: 4,
-              z: 15,
-            },
-            {
-              name: 'Большой',
-              kvn: 4,
-              kp: 5,
-              z: 15,
-            }
-          ],
-        }
-      },
-      methods: {
-        calcP: function(k) {
-          let str = k.split('').map(i => i == ',' ? '.' : i).join('');
-          let P = 5 + Number(str) * 2;
-          this.formats.forEach(obj => obj.p = P);
-          return P
-        }
-      },
-      computed: {
-        
-      },
-    });
-  </script>
+  <!-- <script>
+
+  </script> -->
   <script src="main.js"></script>
 </body>
 </html>

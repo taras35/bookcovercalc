@@ -39,8 +39,14 @@ ul {
 }
 
 h1 {
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   padding: 5px;
+}
+
+h2 {
+  font-size: 16px;
+  font-style: italic;
+  margin-bottom: 20px;
 }
 
 img {
@@ -59,6 +65,18 @@ select {
 
 button {
   border: none;
+  display: block;
+  margin: 0 auto;
+  padding: 5px 12px;
+  background-color: #efefef;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all ease-in .2s;
+}
+
+button:hover {
+  border: 1px solid #ddd;
+  padding: 7px 14px;
 }
 
 a{
@@ -76,7 +94,7 @@ a{
 
 section>div {
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-between;
   align-items: start;
   margin-bottom: 20px;
 }
