@@ -10,6 +10,7 @@
   <div id="app">
     <div class="container">
       <h1>Рассчет размеров деталей переплетных крышек типа 7</h1>
+      <h2>Все параметры указывать в мм</h2>
       <section>
         <div>
           <div>
@@ -66,15 +67,15 @@
             <form>
               <div>
                 <div>
-                  <select name="select">
+                  <select id="format-type" name="format-type">
                     <option value="Малый">Малый</option>
                     <option value="Средний" selected>Средний</option>
                     <option value="Большой">Большой</option>
                   </select>
-                  <input id="straight" type="radio" name="book-spine" checked>
-                  <label for="straight">Прямой корешок</label>
-                  <input id="round" type="radio" name="book-spine">
-                  <label for="round">Кругленый корешок</label>
+                  <select id="spine-type" name="spine-type">
+                    <option value="" selected>Прямой корешок</option>
+                    <option value="">Кругленый корешок</option>
+                  </select>
                 </div>
                 <div>
                   <label for="width">Ш</label>
@@ -91,6 +92,7 @@
           </div>
           
         </div>
+        <button>Рассчитать</button>
       </section>
     </div>
   </div>
@@ -104,6 +106,11 @@
       data: function() {
         return {
           k: 0,
+          w: 0,
+          h: 0,
+          Tb: 0,
+          Kot: 0,
+          params: {},
           formats: [
             {
               name: 'Малый',
