@@ -79,20 +79,20 @@
                 </div>
                 <div>
                   <label for="width">Ш</label>
-                  <input id="width" type="text">
+                  <input id="width" type="text" v-model="w">
                   <label for="height">В</label>
-                  <input id="height" type="text">
+                  <input id="height" type="text" v-model="h">
                   <label for="thickness">Тб</label>
-                  <input id="thickness" type="text">
+                  <input id="thickness" type="text" v-model="Tb">
                   <label for="card-spine">Кот</label>
-                  <input id="card-spine" type="text">
+                  <input id="card-spine" type="text" v-model="Kot">
                 </div>
               </div>
             </form>
           </div>
           
         </div>
-        <button>Рассчитать</button>
+        <button v-bind:disabled="isButtonDisabled">Рассчитать</button>
       </section>
     </div>
   </div>
@@ -142,7 +142,9 @@
         }
       },
       computed: {
-        
+        isButtonDisabled: function() {
+          return +this.k && +this.w && +this.h && +this.Tb && +this.Kot ? false : true
+        },
       },
     });
   </script>
