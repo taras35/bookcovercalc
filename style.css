@@ -90,6 +90,12 @@ a{
   width: 100%;
 }
 
+.hg {
+  border: 1px solid #000;
+  width: 100px;
+  height: 100px;
+}
+
 /* Section */
 section {
   margin-bottom: 10px;

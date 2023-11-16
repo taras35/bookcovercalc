@@ -93,12 +93,10 @@
           
         </div>
         <!-- v-bind:disabled="isButtonDisabled" -->
-        <button  v-on:click="calculationValue">Рассчитать</button>
+        <button  v-on:click="renderScheme">Рассчитать</button>
       </section>
       <section>
-        <p>
-          Здесь появится схема:
-        </p>
+        <p>Здесь появится схема:</p>
       </section>
     </div>
   </div>
@@ -171,7 +169,6 @@
           let Hm = this.params.h + 2 * (this.params.kvn + this.params.k + this.params.z); // высота покровного материала крышек
           let Wop = Wok = Wmp = Wmk = Wshp = Wshk = Wkp = Wkk = 0;
           let selectSpine = document.querySelector('#spine-type');
-          // console.log(Wop, Wok, Wmp, Wmk, Wshp, Wshk, Wkp, Wkk, this.params)
           
           if (selectSpine.value = 'Прямой') {
             Wop = this.params.Tb + 2 * this.params.Kot;
@@ -179,13 +176,16 @@
             Wshp = this.params.Tb + 2 * (this.params.p + this.params.Kot);
             Wkp = this.params.Tb + 2 * (this.params.w + this.params.kp + this.params.Kot);
           } else if (selectSpine.value = 'Кругленый') {
-
+            
           }
+
+          return {Wop: Wop, Wok: Wok, Wmp: Wmp, Wmk: Wmk, Wshp: Wshp, Wshk: Wshk, Wkp: Wkp, Wkk: Wkk, SHkc: SHkc, Hkc: Hkc, Hot: Hot, Hm: Hm,}
+          // console.log(Wop, Wok, Wmp, Wmk, Wshp, Wshk, Wkp, Wkk, this.params)
         },
         renderScheme: function() {
           this.addInParams();
-          this.calculationValue();
-
+          Object.assign(this.params, this.calculationValue());
+          // console.log(this.params)
         }
       },
       computed: {
