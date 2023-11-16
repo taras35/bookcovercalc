@@ -95,8 +95,18 @@
         <!-- v-bind:disabled="isButtonDisabled" -->
         <button  v-on:click="renderScheme">Рассчитать</button>
       </section>
-      <section>
+      <section id="render">
         <p>Здесь появится схема:</p>
+        <div>
+          <span>15</span>
+          <div>
+            <span></span>
+            <div>
+              <span></span>
+              <div><span></span></div>
+            </div>
+          </div>
+        </div>
       </section>
     </div>
   </div>
@@ -163,7 +173,7 @@
           });
         },
         calculationValue: function() {
-          let SHkc = this.params.w + this.params.kp - this.params.p; // ширина кортонных сторонок
+          let Wkc = this.params.w + this.params.kp - this.params.p; // ширина кортонных сторонок
           let Hkc = this.params.h + 2 * this.params.kvn; // высота кортонных сторонок
           let Hot = this.params.h + 2 * this.params.kvn; // высота отстава допуск -0,5 - -1
           let Hm = this.params.h + 2 * (this.params.kvn + this.params.k + this.params.z); // высота покровного материала крышек
@@ -179,13 +189,15 @@
             
           }
 
-          return {Wop: Wop, Wok: Wok, Wmp: Wmp, Wmk: Wmk, Wshp: Wshp, Wshk: Wshk, Wkp: Wkp, Wkk: Wkk, SHkc: SHkc, Hkc: Hkc, Hot: Hot, Hm: Hm,}
+          return {Wop: Wop, Wok: Wok, Wmp: Wmp, Wmk: Wmk, Wshp: Wshp, Wshk: Wshk, Wkp: Wkp, Wkk: Wkk, Wkc: Wkc, Hkc: Hkc, Hot: Hot, Hm: Hm,}
           // console.log(Wop, Wok, Wmp, Wmk, Wshp, Wshk, Wkp, Wkk, this.params)
         },
         renderScheme: function() {
           this.addInParams();
           Object.assign(this.params, this.calculationValue());
-          // console.log(this.params)
+          console.log(this.params)
+          
+          // render.append()
         }
       },
       computed: {
