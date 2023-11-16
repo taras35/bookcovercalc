@@ -91,6 +91,9 @@ a{
 }
 
 /* Section */
+section {
+  margin-bottom: 10px;
+}
 
 section>div {
   display: flex;
