@@ -19,7 +19,7 @@
             средних; Б - для больших форматов.</p>
           </div>
           <div>
-            <label for="cardboard">Введите толщину картона К (рис. 1)</label>
+            <label for="cardboard">Введите толщину картона сторонок К (рис. 1)</label>
             <input id="cardboard" type="text" v-model="k">
             <table>
               <caption>
@@ -53,7 +53,7 @@
 
           <div>
             <ul>
-              <li>К — толщина картона</li>
+              <li>К — толщина картона сторонок</li>
               <li>Тб — толщина книжного блока</li>
               <li>Квн — ширина верхних и нижних кантов</li>
               <li>Кп — ширина передних кантов</li>
@@ -80,24 +80,22 @@
                   </select>
                 </div>
                 <div v-if="selectValue == 'Прямой'">
-                  <label for="width">Ш</label>
+                  <label for="width">Ш:</label>
                   <input id="width" type="text" v-model="w">
-                  <label for="height">В</label>
+                  <label for="height">В:</label>
                   <input id="height" type="text" v-model="h">
-                  <label for="thickness">Тб</label>
+                  <label for="thickness">Тб:</label>
                   <input id="thickness" type="text" v-model="Tb">
-                  <label for="card-spine">Кот</label>
+                  <label for="card-spine">Кот:</label>
                   <input id="card-spine" type="text" v-model="Kot">
                 </div>
                 <div v-else-if="selectValue == 'Кругленый'">
-                  <label for="width">Ш</label>
+                  <label for="width">Ш:</label>
                   <input id="width" type="text" v-model="w">
-                  <label for="height">В</label>
+                  <label for="height">В:</label>
                   <input id="height" type="text" v-model="h">
-                  <label for="length-spine">Lк</label>
+                  <label for="length-spine">Lк:</label>
                   <input id="length-spine" type="text" v-model="Lk">
-                  <label for="card-spine">Кот</label>
-                  <input id="card-spine" type="text" v-model="Kot">
                 </div>
                 <div v-else></div>
               </div>
@@ -177,6 +175,7 @@
           this.params.h = +this.h;
           this.params.Tb = +this.Tb;
           this.params.Kot = +this.Kot;
+          this.params.Lk = +this.Lk;
           let selectFormat = document.querySelector('#format-type');
           this.formats.map(function(obj){
             if (obj.name == selectFormat.value) {
@@ -193,25 +192,25 @@
           let Hot = this.params.h + 2 * this.params.kvn; // высота отстава допуск -0,5 - -1
           let Hm = this.params.h + 2 * (this.params.kvn + this.params.k + this.params.z); // высота покровного материала крышек
           let Wop = Wok = Wmp = Wmk = Wshp = Wshk = Wkp = Wkk = 0;
-          let selectSpine = document.querySelector('#spine-type');
           
-          if (selectSpine.value = 'Прямой') {
-            Wop = this.params.Tb + 2 * this.params.Kot;
-            Wmp = this.params.Tb + 2 * (this.params.w + this.params.k + this.params.Kot + this.params.kp + this.params.z);
+          if (this.selectValue == 'Прямой') {
+            Wop  = this.params.Tb + 2 * this.params.Kot;
+            Wmp  = this.params.Tb + 2 * (this.params.w + this.params.k + this.params.Kot + this.params.kp + this.params.z);
             Wshp = this.params.Tb + 2 * (this.params.p + this.params.Kot);
-            Wkp = this.params.Tb + 2 * (this.params.w + this.params.kp + this.params.Kot);
-          } else if (selectSpine.value = 'Кругленый') {
-            
+            Wkp  = this.params.Tb + 2 * (this.params.w + this.params.kp + this.params.Kot);
+          } else if (this.selectValue == 'Кругленый') {
+            Wok  = this.params.Lk;
+            Wmk  = this.params.Lk + 2 * (this.params.w + this.params.k + this.params.kp + this.params.z);
+            Wshk = this.params.Lk + 2 * this.params.p;
+            Wkk  = this.params.Lk + 2 * (this.params.w + this.params.kp);
           }
 
           return {Wop: Wop, Wok: Wok, Wmp: Wmp, Wmk: Wmk, Wshp: Wshp, Wshk: Wshk, Wkp: Wkp, Wkk: Wkk, Wkc: Wkc, Hkc: Hkc, Hot: Hot, Hm: Hm,}
-          // console.log(Wop, Wok, Wmp, Wmk, Wshp, Wshk, Wkp, Wkk, this.params)
         },
         renderScheme: function() {
           this.addInParams();
           Object.assign(this.params, this.calculationValue());
           console.log(this.params)
-          
           // render.append()
         }
       },
