@@ -62,6 +62,7 @@
               <li>Ш — ширина книжного блока</li>
               <li>В — высота книжного блока</li>
               <li>Кот — толщина картона отстава</li>
+              <li>Lк — длина дуги кругленого корешка</li>
             </ul>
             
             <form>
@@ -72,12 +73,13 @@
                     <option value="Средний" selected>Средний</option>
                     <option value="Большой">Большой</option>
                   </select>
-                  <select id="spine-type" name="spine-type">
-                    <option value="Прямой" selected>Прямой корешок</option>
-                    <option value="Кругленый">Кругленый корешок</option>
+                  <select id="spine-type" name="spine-type" v-model="selectValue">
+                    <option value="" disabled>Выбрать тип корешка</option>
+                    <option value="Прямой" selected>Прямой</option>
+                    <option value="Кругленый">Кругленый</option>
                   </select>
                 </div>
-                <div>
+                <div v-if="selectValue == 'Прямой'">
                   <label for="width">Ш</label>
                   <input id="width" type="text" v-model="w">
                   <label for="height">В</label>
@@ -87,6 +89,17 @@
                   <label for="card-spine">Кот</label>
                   <input id="card-spine" type="text" v-model="Kot">
                 </div>
+                <div v-else-if="selectValue == 'Кругленый'">
+                  <label for="width">Ш</label>
+                  <input id="width" type="text" v-model="w">
+                  <label for="height">В</label>
+                  <input id="height" type="text" v-model="h">
+                  <label for="length-spine">Lк</label>
+                  <input id="length-spine" type="text" v-model="Lk">
+                  <label for="card-spine">Кот</label>
+                  <input id="card-spine" type="text" v-model="Kot">
+                </div>
+                <div v-else></div>
               </div>
             </form>
           </div>
@@ -124,6 +137,8 @@
           h: 0,
           Tb: 0,
           Kot: 0,
+          Lk: 0,
+          selectValue: '',
           params: {
 
           },
