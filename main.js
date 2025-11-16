@@ -94,7 +94,7 @@ window.app = new Vue({
             <span class="Wkc">${this.params.Wkc}</span>
             <span class="Hkc">${this.params.Hkc}</span>
             <div>
-              <span class="P">${this.params.p}</span>
+              <span class="P">${this.params.p + this.params.Kot}</span>
               <div>
                 <span class="Tb">${this.params.Tb}</span>
               </div>
